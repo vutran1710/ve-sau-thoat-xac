@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
+
 import weaviate, { WeaviateClient } from "weaviate-ts-client";
 
-const createClient = () => {
-  dotenv.config({ path: ".env.local" });
-  console.log("HOST", process.env.WEAVIATE_HOST);
+export const createClient = () => {
   const client: WeaviateClient = weaviate.client({
     scheme: "https",
     host: process.env.WEAVIATE_HOST as string, // e.g., 'my-instance.weaviate.network'
@@ -52,5 +52,3 @@ export async function createVuMemorySchema() {
     })
     .do();
 }
-
-createVuMemorySchema();
