@@ -56,9 +56,10 @@ export default function Home() {
   };
 
   return (
-    <main className="max-w-2xl mx-auto py-10 px-4 font-sans">
+    <main className="max-w-2xl mx-auto min-h-screen flex flex-col px-4 pt-10 font-sans">
       <h1 className="text-3xl font-bold mb-6 text-center">Vũ(GP)Trần</h1>
-      <div className="space-y-4 mb-6 min-h-[300px]">
+
+      <div className="wrapper flex-1 overflow-y-auto space-y-4 mb-6">
         {messages.map((msg, idx) => (
           <ChatBubble
             key={idx}
@@ -67,10 +68,11 @@ export default function Home() {
           />
         ))}
         {status === "submitted" && (
-          <div className="text-gray-500 italic">Thinking...</div>
+          <div className="text-gray-500 italic">Đang suy nghĩ...</div>
         )}
       </div>
-      <form onSubmit={onSubmit} className="flex gap-2">
+
+      <form onSubmit={onSubmit} className="flex gap-2 pb-20">
         <input
           value={input}
           onChange={handleInputChange}
