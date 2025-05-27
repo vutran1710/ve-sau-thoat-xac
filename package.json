@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint --fix",
     "init:weave": "tsx src/scripts/create-weaviate-schema.ts",
-    "import-memory": "tsx src/scripts/import-memory.ts"
+    "import-memory": "tsx src/scripts/import-memory.ts",
+    "tone-profile": "tsx src/scripts/init-tone-profile.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^1.3.22",
