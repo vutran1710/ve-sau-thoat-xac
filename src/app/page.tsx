@@ -57,7 +57,7 @@ export default function Home() {
 
   return (
     <main className="max-w-2xl mx-auto py-10 px-4 font-sans">
-      <h1 className="text-3xl font-bold mb-6 text-center">VuGPT</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Vũ(GP)Trần</h1>
       <div className="space-y-4 mb-6 min-h-[300px]">
         {messages.map((msg, idx) => (
           <ChatBubble
@@ -75,7 +75,7 @@ export default function Home() {
           value={input}
           onChange={handleInputChange}
           className="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Ask VuGPT anything..."
+          placeholder="Tâm sự với Vũ Trần..."
         />
         <button
           type="submit"
