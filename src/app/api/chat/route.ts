@@ -1,11 +1,8 @@
 import { streamText } from "ai";
 import { openai } from "@ai-sdk/openai";
 import { retrieveRelevantHistory, storeMessage } from "@/lib/memory";
-import { ensureSchemaIfMissing } from "@/lib/setupWeaviateSchema";
 
 export async function POST(req: Request) {
-  await ensureSchemaIfMissing();
-
   const { messages } = await req.json();
   const userMessage = messages.at(-1)?.content || "";
 
