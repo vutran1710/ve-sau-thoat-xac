@@ -19,8 +19,8 @@ export async function ensureSchemaIfMissing() {
   try {
     await client.schema.classGetter().withClassName("VuMessage").do();
     // Class exists — no action
-  } catch (err: any) {
-    // console.log("Error checking schema:", JSON.stringify(err));
+  } catch (err: unknown) {
+    console.log("Error checking schema:", JSON.stringify(err));
     await client.schema
       .classCreator()
       .withClass({

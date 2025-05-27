@@ -47,13 +47,23 @@ async function queryMemory(prompt: string) {
     console.log("⚠️ No relevant memory found.");
   } else {
     console.log("\n🧠 Top Matches:");
-    matches.forEach((m: any, i: number) => {
-      console.log(`\n#${i + 1}`);
-      console.log(`- content: ${m.content}`);
-      console.log(`- source: ${m.source}`);
-      console.log(`- tags: ${m.tags?.join(", ")}`);
-      console.log(`- timestamp: ${m.timestamp}`);
-    });
+    matches.forEach(
+      (
+        m: {
+          content: string;
+          source: string;
+          tags: string[];
+          timestamp: number;
+        },
+        i: number,
+      ) => {
+        console.log(`\n#${i + 1}`);
+        console.log(`- content: ${m.content}`);
+        console.log(`- source: ${m.source}`);
+        console.log(`- tags: ${m.tags?.join(", ")}`);
+        console.log(`- timestamp: ${m.timestamp}`);
+      },
+    );
   }
 }
 

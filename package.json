@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint --fix",
     "init:weave": "tsx src/scripts/create-weaviate-schema.ts",
     "import-memory": "tsx src/scripts/import-memory.ts"
   },

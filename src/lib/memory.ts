@@ -37,8 +37,10 @@ export async function retrieveRelevantHistory(input: string, k = 3) {
     .withLimit(k)
     .do();
 
-  return result.data.Get.VuMessage.map((msg: any) => ({
-    role: msg.role,
-    content: msg.content,
-  }));
+  return result.data.Get.VuMessage.map(
+    (msg: { role: string; content: string }) => ({
+      role: msg.role,
+      content: msg.content,
+    }),
+  );
 }

@@ -30,7 +30,11 @@ async function ensureVuMemorySchema() {
   try {
     await client.schema.classGetter().withClassName("VuMemory").do();
     console.log("ℹ️  VuMemory schema already exists");
-  } catch (err: any) {
+  } catch (err: unknown) {
+    console.error(
+      "⚠️ VuMemory schema not found, creating it...",
+      JSON.stringify(err),
+    );
     await client.schema
       .classCreator()
       .withClass({
