@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import weaviate, { WeaviateClient } from "weaviate-ts-client";
 
-async function ensureSchemaIfMissing() {
+const createClient = () => {
   dotenv.config({ path: ".env.local" });
   console.log("HOST", process.env.WEAVIATE_HOST);
   const client: WeaviateClient = weaviate.client({
@@ -11,6 +11,11 @@ async function ensureSchemaIfMissing() {
       ? new weaviate.ApiKey(process.env.WEAVIATE_API_KEY)
       : undefined,
   });
+  return client;
+};
+
+export async function ensureSchemaIfMissing() {
+  const client = createClient();
   try {
     await client.schema.classGetter().withClassName("VuMessage").do();
     // Class exists — no action
@@ -30,4 +35,22 @@ async function ensureSchemaIfMissing() {
   }
 }
 
-ensureSchemaIfMissing();
+export async function createVuMemorySchema() {
+  const client = createClient();
+
+  await client.schema
+    .classCreator()
+    .withClass({
+      class: "VuMemory",
+      vectorizer: "none", // we embed manually
+      properties: [
+        { name: "content", dataType: ["text"] },
+        { name: "source", dataType: ["text"] }, // e.g. 'friend', 'chatgpt'
+        { name: "tags", dataType: ["text[]"] }, // optional: sarcasm, deep, funny
+        { name: "timestamp", dataType: ["text"] }, // ISO string
+      ],
+    })
+    .do();
+}
+
+createVuMemorySchema();
