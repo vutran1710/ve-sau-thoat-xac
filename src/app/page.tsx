@@ -2,7 +2,7 @@
 
 import { useChat } from "@ai-sdk/react";
 import ChatBubble from "@/components/ChatBubble";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { loadMessagesFromLocal, saveMessagesToLocal } from "@/lib/local";
 
@@ -60,18 +60,20 @@ export default function Home() {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const logUserMessage = async () => {
+  const logUserMessage = useCallback(async () => {
     if (!input.trim()) return;
-    await fetch("/api/log", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        conversationId: conversationIdRef.current,
-        role: "user",
-        content: input,
-      }),
-    });
-  };
+    if (username !== "devtest") {
+      await fetch("/api/log", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          conversationId: conversationIdRef.current,
+          role: "user",
+          content: input,
+        }),
+      });
+    }
+  }, [username]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -114,7 +116,11 @@ export default function Home() {
   return (
     <main className="max-w-2xl mx-auto h-screen flex flex-col px-4 pt-10 font-sans">
       <h1 className="text-3xl font-bold mb-6 text-center">Vũ(GP)Trần</h1>
-
+      {username === "devtest" && (
+        <div className="text-red-500 text-sm mb-4 bg-yellow-100 p-3 rounded bt-2">
+          Dev mode enabled. All messages will not be logged.
+        </div>
+      )}
       <div className="flex-1 overflow-y-auto space-y-4 mb-6 pr-1 z-10">
         {messages.map((msg, idx) => (
           <ChatBubble
