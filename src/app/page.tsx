@@ -14,21 +14,6 @@ export default function Home() {
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
   // Initialize conversation ID and username
-  useEffect(() => {
-    const id = localStorage.getItem("conversationId") || uuidv4();
-    localStorage.setItem("conversationId", id);
-    conversationIdRef.current = id;
-
-    const savedName = localStorage.getItem("vu-username");
-    if (savedName) {
-      setUsername(savedName);
-    } else {
-      setAskName(true);
-    }
-
-    const restored = loadMessagesFromLocal();
-    if (restored.length) setMessages(restored);
-  }, []);
 
   const {
     messages,
@@ -55,6 +40,22 @@ export default function Home() {
     },
   });
 
+  useEffect(() => {
+    const id = localStorage.getItem("conversationId") || uuidv4();
+    localStorage.setItem("conversationId", id);
+    conversationIdRef.current = id;
+
+    const savedName = localStorage.getItem("vu-username");
+    if (savedName) {
+      setUsername(savedName);
+    } else {
+      setAskName(true);
+    }
+
+    const restored = loadMessagesFromLocal();
+    if (restored.length) setMessages(restored);
+  }, [setMessages]);
+
   // Scroll to bottom on new messages
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -73,7 +74,7 @@ export default function Home() {
         }),
       });
     }
-  }, [username]);
+  }, [username, input]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
