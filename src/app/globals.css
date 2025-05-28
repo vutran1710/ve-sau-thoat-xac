@@ -35,12 +35,9 @@ body::before {
     left: 0;
     height: 100%;
     width: 100%;
-    background-image: inherit;
-    background-repeat: inherit;
-    background-size: inherit;
-    background-attachment: inherit;
-    opacity: 0.02; /* 👈 adjust for subtlety */
-    z-index: -1;
+    background: lemonchiffon;
+    opacity: 0.1; /* 👈 adjust for subtlety */
+    z-index: 0;
 }
 
 .wrapper {
@@ -49,4 +46,12 @@ body::before {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-form {
+    background: white;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 15px;
+    z-index: 1;
 }

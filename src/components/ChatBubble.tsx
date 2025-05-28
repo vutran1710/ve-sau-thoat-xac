@@ -9,7 +9,7 @@ export default function ChatBubble({ role, content }: Props) {
       className={`p-3 rounded-lg max-w-[80%] whitespace-pre-wrap ${
         role === "user"
           ? "bg-blue-100 ml-auto text-right"
-          : "bg-gray-100 mr-auto text-left"
+          : "bg-white mr-auto text-left"
       }`}
     >
       {content}
