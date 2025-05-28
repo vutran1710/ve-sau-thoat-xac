@@ -9,6 +9,7 @@ export default function Home() {
   const conversationIdRef = useRef<string>("");
   const [username, setUsername] = useState<string | null>(null);
   const [askName, setAskName] = useState(false);
+  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("conversationId");
@@ -59,8 +60,12 @@ export default function Home() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (sending) return; // prevent spam click
+
+    setSending(true);
     await logUserMessage();
-    handleSubmit(e);
+    handleSubmit(e); // this triggers streaming
+    setSending(false); // re-enable after completion
   };
 
   if (askName) {
@@ -119,7 +124,10 @@ export default function Home() {
         />
         <button
           type="submit"
-          className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800"
+          disabled={sending}
+          className={`bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 ${
+            sending ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         >
           Send
         </button>
