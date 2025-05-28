@@ -26,8 +26,7 @@ export default function Home() {
     api: "/api/chat",
     initialMessages: [],
     onFinish: async (msg) => {
-      const updated = [...messages, msg];
-      saveMessagesToLocal(updated);
+      saveMessagesToLocal(messages);
       await fetch("/api/log", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
