@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tâm sự với Vũ Trần",
+  title: "Yapping với Vũ",
   description:
-    "Một cuộc trò chuyện với Vũ Trần. Nghe có vẻ lạ, nhưng đừng dại mà thử! :(",
+    "Trò chuyện với Vũ Trần. Nghe có vẻ lạ, nhưng đừng dại mà thử! Mà thử thì đừng có spam :(",
 };
 
 export default function RootLayout({
